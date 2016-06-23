@@ -14,7 +14,7 @@ class Control:
         self.__healt = {'gun': 20, 'knife': 40}
         self.__filler = {"", " ", "\"\""}
 
-    def createrobot(self, name, weap):
+    def create_robot(self, name, weap):
         if name not in self.__robots and weap in self.__weapons and name not in self.__filler:
             self.__id += 1
             robot = Robo.Robo(name, weap, self.__id, self.__weapons[weap], self.__healt[weap])
@@ -23,13 +23,14 @@ class Control:
         else:
             print("Nome già scelto o arma non valida")
 
+    # TODO add a range
     def attack(self, atk, defen):
         if atk != defen:
             if atk in self.__robots:
                 if defen in self.__robots:
                     att = self.__robots[atk]
                     dff = self.__robots[defen]
-                    dff.healt -= att.damge()
+                    dff.healt -= att.damage
                     if dff.healt <= 0:
                         del self.__robots[defen]
                         self.__grid.delete(defen)
@@ -39,6 +40,7 @@ class Control:
             else:
                 print("Robot attaccante non trovato.(%s non esiste )" % atk)
 
+    # TODO add move in view
     def move(self, x, y, name):
         if x <= self.__dimension and y <= self.__dimension and self.__grid.matrix[x][y] == "empty":
             if name in self.__robots:
@@ -46,3 +48,5 @@ class Control:
 
     def refresh(self):
         return self.__grid.view
+
+    # TODO buff/malus
